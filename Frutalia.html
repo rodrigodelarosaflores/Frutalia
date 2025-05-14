@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frutalia - Jugos Naturales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredoka', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #fff8e1, #ffecb3);
+      color: #333;
+    }
+    header {
+      background-color: #f57c00;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    form {
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #4caf50;
+    }
+    select, input, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 0.3rem;
+      border: 2px solid #c8e6c9;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+    select:focus, input:focus, textarea:focus {
+      border-color: #81c784;
+      outline: none;
+    }
+    button {
+      background: #43a047;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #388e3c;
+    }
+    .mensaje {
+      text-align: center;
+      margin-top: 1rem;
+      color: #2e7d32;
+      font-weight: bold;
+    }
+    .tabla-pedidos {
+      max-width: 960px;
+      margin: 3rem auto;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .tabla-pedidos h2 {
+      text-align: center;
+      color: #e53935;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+    th {
+      background-color: #ef5350;
+      color: white;
+      padding: 0.7rem;
+    }
+    td {
+      padding: 0.6rem;
+      border-bottom: 1px solid #ccc;
+    }
+    tr:nth-child(even) {
+      background-color: #fffde7;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f1f8e9;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    @media (max-width: 600px) {
+      form, .tabla-pedidos {
+        margin: 1rem;
+        padding: 1rem;
+      }
+      table {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🥭 Frutalia - Jugos Naturales 🍓</h1>
+  </header>
+
+  <form id="pedidoForm">
+    <label for="nombre">🍍 Nombre del Cliente</label>
+    <input type="text" id="nombre" name="Nombre del Cliente" required />
+
+    <label for="telefono">📞 Teléfono</label>
+    <input type="tel" id="telefono" name="Telefono" required />
+
+    <label for="sabor">🥤 Sabor del Jugo</label>
+    <select id="sabor" name="Sabor del Jugo" required>
+      <option value="">Selecciona un sabor</option>
+      <option value="Naranja">Naranja</option>
+      <option value="Mango">Mango</option>
+      <option value="Fresa">Fresa</option>
+      <option value="Maracuyá">Maracuyá</option>
+      <option value="Sandía">Sandía</option>
+      <option value="Piña">Piña</option>
+    </select>
+
+    <label for="tamano">📏 Tamaño</label>
+    <select id="tamano" name="Tamano" required>
+      <option value="">Selecciona un tamaño</option>
+      <option value="Chico">Chico</option>
+      <option value="Mediano">Mediano</option>
+      <option value="Grande">Grande</option>
+    </select>
+
+    <label for="comentarios">📝 Comentarios adicionales</label>
+    <textarea id="comentarios" name="Comentarios adicionales" rows="3"></textarea>
+
+    <button type="submit">✅ Enviar Pedido</button>
+    <p class="mensaje" id="mensajeExito"></p>
+  </form>
+
+  <div class="tabla-pedidos">
+    <h2>📋 Pedidos Registrados</h2>
+    <table id="tablaPedidos">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Teléfono</th>
+          <th>Sabor</th>
+          <th>Tamaño</th>
+          <th>Comentarios</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <footer>
+    © 2025 Frutalia. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzCmad7ntwHha-u6clt1eMhAbgd5U8w8RCwNV002f074nIncoQkVLGGmtiC5XMMskJLoQ/exec';
+    const form = document.getElementById('pedidoForm');
+    const mensaje = document.getElementById('mensajeExito');
+    const tablaBody = document.querySelector('#tablaPedidos tbody');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const datos = {
+        "Nombre del Cliente": form.nombre.value,
+        "Telefono": form.telefono.value,
+        "Sabor del Jugo": form.sabor.value,
+        "Tamano": form.tamano.value,
+        "Comentarios adicionales": form.comentarios.value
+      };
+
+      try {
+        const res = await fetch(scriptURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(datos)
+        });
+
+        if (res.ok) {
+          mensaje.textContent = 'Tu pedido ha sido enviado con éxito, pasa a recogerlo en 10 minutos. ¡Frutalia agradece tu preferencia!';
+          form.reset();
+          cargarPedidos();
+        } else {
+          mensaje.textContent = 'Ocurrió un error al enviar el pedido.';
+        }
+      } catch (err) {
+        mensaje.textContent = 'Error de conexión con el servidor.';
+      }
+
+      setTimeout(() => mensaje.textContent = '', 8000);
+    });
+
+    async function cargarPedidos() {
+      try {
+        const res = await fetch(scriptURL);
+        const pedidos = await res.json();
+
+        tablaBody.innerHTML = '';
+
+        pedidos.reverse().forEach(pedido => {
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td>${new Date(pedido.Fecha).toLocaleString()}</td>
+            <td>${pedido["Nombre del Cliente"]}</td>
+            <td>${pedido.Telefono}</td>
+            <td>${pedido["Sabor del Jugo"]}</td>
+            <td>${pedido.Tamano}</td>
+            <td>${pedido["Comentarios adicionales"]}</td>
+          `;
+          tablaBody.appendChild(fila);
+        });
+      } catch (err) {
+        tablaBody.innerHTML = '<tr><td colspan="6">Error al cargar pedidos.</td></tr>';
+      }
+    }
+
+    cargarPedidos();
+  </script>
+</body>
+</html>
